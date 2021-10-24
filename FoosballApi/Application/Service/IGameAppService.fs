@@ -7,7 +7,7 @@ type IGameAppService =
 
     abstract get: id: int -> GameDto
 
-    abstract startGame: gameStartCommand: GameStartCommandDto -> GameDto
+    abstract start: startCommandDto: GameStartCommandDto -> GameDto
 
     abstract homeScores: homeScoresCommandDto: HomeScoresCommandDto -> GameDto
 

@@ -25,11 +25,10 @@ type GameAppService (gameQueryRepository: IGameQueryRepository, gameCommandRepos
             gameQueryRepository.get id
             |> GameMapper.mapToDto
 
-        member _.startGame gameStartCommand =
-            Game.startGame gameStartCommand.homeTeamName gameStartCommand.awayTeamName DateTime.Now
+        member _.start startCommandDto =
+            Game.startGame startCommandDto.homeTeamName startCommandDto.awayTeamName DateTime.Now
             |> gameCommandRepository.add
             |> GameMapper.mapToDto
-
 
         member _.homeScores homeScoresCommandDto =
             teamScores homeScoresCommandDto.gameId Home

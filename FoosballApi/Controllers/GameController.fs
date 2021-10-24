@@ -18,8 +18,8 @@ type GameController (gameAppService: IGameAppService) =
         gameAppService.get id
 
     [<HttpPost("start")>]
-    member _.start gameStartCommandDto =
-        gameAppService.startGame gameStartCommandDto
+    member _.start startCommandDto =
+        gameAppService.start startCommandDto
 
     [<HttpPost("homeScores")>]
     member _.homeScores homeScoresCommandDto =
