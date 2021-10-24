@@ -2,12 +2,6 @@
 
 open System
 
-type GameEventType =
-    | GameStarted
-    | GameFinished
-    | HomeScores
-    | AwayScores
-
 type GameEvent =
     { date: DateTime
       eventType: GameEventType
@@ -19,4 +13,3 @@ module GameEvent =
         { date = date
           eventType = eventType
           gameScore = gameScore }
-

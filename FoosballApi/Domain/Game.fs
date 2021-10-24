@@ -3,24 +3,35 @@
 open System
 
 type Game =
-    { homeTeam: Team
+    { id: int
+      homeTeam: Team
       awayTeam: Team
       startDate: DateTime
-      score: GameScore
-      gameEvents: GameEvent list }
+      gameEvents: GameEvent seq }
 
 module Game = 
 
     let create homeTeam awayTeam startDate score gameEvents =
-        { homeTeam = homeTeam
+        { id = 0
+          homeTeam = homeTeam
           awayTeam = awayTeam
           startDate = startDate
-          score = score
           gameEvents = gameEvents }
 
-    let startMatch homeTeam awayTeam startDate =
+    let startGame homeTeamName awayTeamName startDate =
+        let homeTeam = Team.create homeTeamName
+        let awayTeam = Team.create awayTeamName
         let score = GameScore.create 0 0 0 0
-        let startEvent = GameEvent.create startDate GameStarted score
+        let startEvent = GameEvent.create startDate GameCreated score
         let game = create homeTeam awayTeam startDate score [startEvent]
         game
-        
+
+    let update teamToScore date game =
+        let lastEvent = game.gameEvents |> Seq.head
+
+        if lastEvent.eventType = HomeWins || lastEvent.eventType = AwayWins then
+            game
+        else
+            let score, eventType = GameScore.update teamToScore lastEvent.gameScore        
+            let newEvent = GameEvent.create date eventType score
+            { game with gameEvents = game.gameEvents |> Seq.append [newEvent] }    
